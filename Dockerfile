@@ -8,8 +8,8 @@ RUN yum -y install epel-release
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-#RUN yum clean all
-#RUN yum update -y
+RUN yum clean all
+RUN yum update -y
 
 RUN yum install nano -y
 
