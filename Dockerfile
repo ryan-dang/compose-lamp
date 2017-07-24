@@ -8,10 +8,14 @@ ENV my_cnf ${code_root}/mysql/my.cnf
 RUN yum clean all \
     && yum update -y \
     && yum install epel-release -y \
+                gcc \
                 httpd \
                 memcached \
                 nano \
+                php-devel \
+                php-pear \
                 wget
+
 
 #install mysql
 RUN wget https://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm \
@@ -21,6 +25,8 @@ RUN wget https://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm \
 #install php
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
     && yum install --enablerepo=epel,remi-php71,remi -y \
+                              ImageMagick \
+                              ImageMagick-devel \
                               php \
                               php-mcrypt \
                               php-mysqli \
