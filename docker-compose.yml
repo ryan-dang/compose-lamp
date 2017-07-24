@@ -5,10 +5,10 @@ services:
       ports:
         - "8000:80"
       links:
-        - db
+        - mysql
       volumes:
         - .:/code
-    db:
+    mysql:
       image: "mysql:latest"
       volumes:
         - ./mysql:/etc/mysql/conf.d

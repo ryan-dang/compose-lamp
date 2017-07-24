@@ -16,12 +16,6 @@ RUN yum clean all \
                 php-pear \
                 wget
 
-
-#install mysql
-RUN wget https://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm \
-    && yum localinstall mysql57-community-release-el7-7.noarch.rpm -y \
-    && yum install mysql-community-server -y;
-
 #install php
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
     && yum install --enablerepo=epel,remi-php71,remi -y \
