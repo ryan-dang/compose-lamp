@@ -9,6 +9,7 @@ RUN yum clean all \
     && yum update -y \
     && yum install epel-release -y \
                 httpd \
+                memcached \
                 nano \
                 wget
 
