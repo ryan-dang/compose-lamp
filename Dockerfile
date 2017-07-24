@@ -1,23 +1,25 @@
 FROM centos/systemd:latest
 
 ENV code_root /code
-ENV httpd_conf ${code_root}/httpd.conf
+ENV httpd_conf ${code_root}/apache/httpd.conf
+ENV my_cnf ${code_root}/mysql/my.cnf
 
-RUN yum clean all; \
-    yum update -y; \
-    yum install epel-release -y \
+
+RUN yum clean all \
+    && yum update -y \
+    && yum install epel-release -y \
                 httpd \
                 nano \
                 wget
 
 #install mysql
-RUN wget https://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm; \
-    yum localinstall mysql57-community-release-el7-7.noarch.rpm -y; \
-    yum install mysql-community-server -y;
+RUN wget https://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm \
+    && yum localinstall mysql57-community-release-el7-7.noarch.rpm -y \
+    && yum install mysql-community-server -y;
 
 #install php
-RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm; \
-    yum install --enablerepo=epel,remi-php71,remi -y \
+RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
+    && yum install --enablerepo=epel,remi-php71,remi -y \
                               php \
                               php-mcrypt \
                               php-mysqli \
@@ -28,7 +30,7 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm; \
                               php-mbstring \
                               php-openssl \
                               php-tokenizer
-
+#update php.ini
 RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" \
         -i -e "s|^;expose_php =.*$|expose_php = Off|" \
         -i -e "s|^;allow_url_fopen =.*$|allow_url_fopen = Off|" \
